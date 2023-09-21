@@ -23,6 +23,6 @@ jobs:
         aws-region: ${{ env.AWS_REGION }}
     - run: |
         echo "Deploying branch ${{ env.GITHUB_REF }} to ${{ github.event.inputs.environment }}"
-        commit_hash=$(git rev-parse HEAD)
+        commit_hash=$(git -C /SujagiVerma/ci_cd_repo_github_actions rev-parse HEAD)
         echo $commit_hash
         aws deploy create-deployment --application-name ci_cd_github_actions --deployment-group-name ci_cd_github_actions_grp --github-location repository=$GITHUB_REPOSITORY,commitId=$commit_hash --ignore-application-stop-failures
