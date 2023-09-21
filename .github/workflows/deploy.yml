@@ -23,4 +23,5 @@ jobs:
         aws-region: ${{ env.AWS_REGION }}
     - run: |
         echo "Deploying branch ${{ env.GITHUB_REF }} to ${{ github.event.inputs.environment }}"
-        aws deploy create-deployment --application-name ci_cd_github_actions --deployment-group-name ci_cd_github_actions_grp --github-location repository=$GITHUB_REPOSITORY,commitId=string --ignore-application-stop-failures
+        commit_hash=`git rev-parse --short HEAD`
+        aws deploy create-deployment --application-name ci_cd_github_actions --deployment-group-name ci_cd_github_actions_grp --github-location repository=$GITHUB_REPOSITORY,commitId=$commit_hash --ignore-application-stop-failures
